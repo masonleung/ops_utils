@@ -1,24 +1,13 @@
-require './helper'
-require 'pry'
+require './worker'
 
-class Consumer
-  include AMQP
-  include Options
-  @options = {}
-
-  def initialize
-    @options = parse_options
-    connect @options[:host], @options[:port], @options[:user], @options[:password]
-  end
-
+class Consumer < Worker
   def run
+    queue
     begin
-      q = queue @options[:queue]
-      file = @options[:file]
-      puts "write: #{file}"
-      File.open(file, 'a') do |f|
+      puts "write: #{@file}"
+      File.open(@file, 'a') do |f|
         while true
-          q.subscribe do |delivery_info, properties, payload|
+          @q.subscribe do |delivery_info, properties, payload|
             # puts payload
             f.puts payload
           end

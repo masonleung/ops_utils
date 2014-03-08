@@ -1,23 +1,13 @@
-require './helper'
+require './worker'
 
-class Producer
-  include AMQP
-  include Options
-  @options = {}
-
-  def initialize
-    @options = parse_options
-    connect @options[:host], @options[:port], @options[:user], @options[:password]
-  end
-
+class Producer < Worker
   def run
-    x = exchange
-    qname = @options[:queue]
-    puts "queue: #{qname}"
+    exchange
+    puts "queue: #{@queue}"
     while true
       now = Time.now.utc.to_s
       puts now
-      x.publish("Hello #{now}", :routing_key => qname)
+      @x.publish("Hello #{now}", :routing_key => @queue)
       sleep 1
     end
   end

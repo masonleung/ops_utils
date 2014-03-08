@@ -1,24 +1,12 @@
-require './helper'
+require './worker'
 
-class Requeuer
-  include AMQP
-  include Options
-  @options = {}
-
-  def initialize
-    @options = parse_options
-    connect @options[:host], @options[:port], @options[:user], @options[:password]
-  end
-
+class Requeuer < Worker
   def run
     begin
-      q = @options[:queue]
-      x = exchange
-      file = @options[:file]
-      File.open(file, 'r') do |f|
+      exchange
+      File.open(@file, 'r') do |f|
         while message = f.gets
-          puts message
-          x.publish(message, :routing_key => q)
+          @x.publish(message, :routing_key => @queue)
         end
         f.close
       end
