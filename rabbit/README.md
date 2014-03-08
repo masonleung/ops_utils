@@ -7,6 +7,10 @@ Produce, consume, and requeue messages
     sudo gem install bundler
     bundle install
 
+## Help
+
+    ruby producer.rb --help
+
 ## Producer
 Create test messages to fill up a queue
 
@@ -16,9 +20,9 @@ Create test messages to fill up a queue
 ## Consumer
 
     # consume and save messages to file
-    ruby consumer.rb --host localhost --port 5672 --user guest --password guest --queue qname --file /tmp/clicks.txt
+    ruby consumer.rb --host localhost --port 5672 --user guest --password guest --queue qname --file /tmp/clicks.log
 
 ## Requeuer
 
     # requeue messages
-    ruby requeuer.rb --host localhost --port 5672 --user guest --password guest --queue clicks_infobright --file /tmp/a.txt
+    ruby requeuer.rb --host localhost --port 5672 --user guest --password guest --queue qname --file /tmp/clicks.log
