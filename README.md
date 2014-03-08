@@ -1,4 +1,3 @@
-ops_utils
-=========
+# Operations Utilities
 
-devops utilities
+[Queue producer/consumer](rabbit/README.md)
