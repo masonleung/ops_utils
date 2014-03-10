@@ -17,4 +17,6 @@ class Requeuer < Worker
   end
 end
 
-Requeuer.new.run
+if __FILE__ == $0
+  Requeuer.new.run
+end

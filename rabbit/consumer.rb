@@ -21,4 +21,6 @@ class Consumer < Worker
   end
 end
 
-Consumer.new.run
+if __FILE__ == $0
+  Consumer.new.run
+end

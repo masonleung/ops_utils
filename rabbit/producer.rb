@@ -13,4 +13,6 @@ class Producer < Worker
   end
 end
 
-Producer.new.run
+if __FILE__ == $0
+  Producer.new.run
+end
